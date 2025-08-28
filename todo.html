@@ -79,6 +79,11 @@
       .clear {
         display: inline-block;
       }
+
+      .done {
+        text-decoration: line-through;
+        color: grey;
+      }
     </style>
   </head>
   <body>
@@ -112,6 +117,10 @@
               const newListItem = document.createElement("li");
               newListItem.textContent = trimmed;
 
+              newListItem.addEventListener("click", () => {
+                newListItem.classList.toggle("done");
+              });
+
               const deleteBtn = document.createElement("button");
               deleteBtn.textContent = "Delete";
               deleteBtn.classList.add("delete");
@@ -125,13 +134,19 @@
         }
       });
 
+      input.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+          add.click();
+        }
+      });
+
       clear.addEventListener("click", () => {
         lists.innerHTML = "";
       });
 
       lists.addEventListener("click", (e) => {
         if (e.target.classList.contains("delete")) {
-          event.target.closest("li").remove();
+          e.target.closest("li").remove();
         }
       });
     </script>
